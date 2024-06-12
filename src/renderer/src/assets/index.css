@@ -15,7 +15,7 @@
 
     @apply bg-transparent;
 
-    @apply font-mono antialiased text-white;
+    @apply font-mono antialiased text-red-500;
 
     @apply overflow-hidden;
   }
