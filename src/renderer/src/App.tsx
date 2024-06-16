@@ -11,12 +11,12 @@ const App = (): JSX.Element => {
   return (
     <>
       <DraggableTopBar />
-      <RootLayout>
-        <Sidebar className="p-2">
+      <RootLayout className="bg-zinc-900/70">
+        <Sidebar className="p-1">
           <ActionButtonRow className="flex justify-between pt-1" />
           <NotePreviewList className="mt-3 space-y-1" />
         </Sidebar>
-        <Content className="border-1 bg-zinc-300/50 border-l-black/50">Content</Content>
+        <Content className="border-l bg-zinc-900/50 border-l-white/20">Content</Content>
       </RootLayout>
     </>
   )

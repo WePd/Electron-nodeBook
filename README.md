@@ -26,6 +26,12 @@ $ yarn build:linux
 
 ```
 
+### 配置项目热启动
+
+1. npm i electron-reloader -D
+
+2.
+
 ### 注意点
 
 1. tsconfig.web.json主要是用在renderer和proload中 而tsconfig.node.json则主要用在main中
@@ -35,4 +41,4 @@ $ yarn build:linux
 
 3. 对于twil-merge的使用
 
-4. 
+4.

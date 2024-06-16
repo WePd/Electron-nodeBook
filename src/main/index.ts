@@ -33,6 +33,12 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
+  // 在主进程中
+  mainWindow.webContents.openDevTools()
+
+  // // 在渲染进程中，可以直接使用
+  // window.openDevTools()
+
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {

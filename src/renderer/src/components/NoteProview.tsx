@@ -16,10 +16,10 @@ export const NoteProview = ({
     // 左侧文件名的显示组件
     <div
       className={cn(
-        'cursor-pointer px-2 py-2 rounded-md transition-colors duration-75',
+        'cursor-pointer px-3 py-2 rounded-md transition-colors duration-75',
         {
           'bg-zinc-400/75': isActive,
-          'hover: bg-red-300': !isActive
+          'hover:bg-zinc-500/75': !isActive
         },
         className
       )}
