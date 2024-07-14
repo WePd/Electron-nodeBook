@@ -23,3 +23,11 @@ export const dateFormatter = (lastEditTime: any) => {
 
   return formattedDate
 }
+
+const dateFormatter_old = new Intl.DateTimeFormat(window.AudioContext.locale, {
+  dateStyle: 'short',
+  timeStyle: 'short',
+  timeZone:'UTC'
+})
+
+export const dateFormatter_New = (ms: bumber) => dateFormatter_old.format()

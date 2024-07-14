@@ -42,3 +42,28 @@ $ yarn build:linux
 3. 对于twil-merge的使用
 
 4.
+
+### 关于tailwindcss中的 @apply @layer @configd的使用
+
+```css
+@tailwind: Tailwind 的模块 base、components、utilities 以及 variants（最后一个模块会默认最后导入）分别导入（因为 CSS 的顺序很重要）
+到样式表中
+@layer: @layer 指令告诉 Tailwind 自定义样式属于哪个 bucket 容器（由于 CSS 的顺序很重要），其中的自定义样式就会生成在相应的「容器」中，这里的容器一般指前面的三个 Tailwind 模块 base、components、utilities 它们依次编译生成到样式表中
+
+/* 表示里面的自定义样式会在 base 模块后面生成  */
+@layer base {
+  h1 {
+    font-size: 2rem;
+  }
+}
+/* 表示里面的自定义样式会在 components 模块后面生成 */
+@layer components {
+  btn-blue {
+    @apply bg-blue-500 px-4 py-2 rounded-xl font-bold hover:bg-blue-700;
+  }
+}
+@apply: @apply 指令将 HTML 中共用的基础类组合提取出来，放到样式表中，「汇总」为一个新的类，然后在 HTML 元素就可以只写这个类名实现相同的效果
+h1 {
+  @apply text-xl;
+}
+```
