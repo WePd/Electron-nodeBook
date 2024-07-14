@@ -67,3 +67,7 @@ h1 {
   @apply text-xl;
 }
 ```
+
+### 状态管理库 Jotai
+
+
