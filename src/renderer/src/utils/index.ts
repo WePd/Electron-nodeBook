@@ -24,10 +24,10 @@ export const dateFormatter = (lastEditTime: any) => {
   return formattedDate
 }
 
-const dateFormatter_old = new Intl.DateTimeFormat(window.AudioContext.locale, {
-  dateStyle: 'short',
-  timeStyle: 'short',
-  timeZone:'UTC'
-})
+// const dateFormatter_old = new Intl.DateTimeFormat(window.AudioContext?.locale, {
+//   dateStyle: 'short',
+//   timeStyle: 'short',
+//   timeZone: 'UTC'
+// })
 
-export const dateFormatter_New = (ms: bumber) => dateFormatter_old.format()
+// export const dateFormatter_New = (ms: number) => dateFormatter_old.format(ms)

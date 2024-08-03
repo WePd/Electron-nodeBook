@@ -24,7 +24,7 @@ const App = (): JSX.Element => {
       <RootLayout className="bg-zinc-900/70">
         <Sidebar className="p-1">
           <ActionButtonRow className="flex justify-between pt-1" />
-          <NotePreviewList className="mt-3 space-y-1" onSelect={resetScroll}/>
+          <NotePreviewList className="mt-3 space-y-1" onSelect={resetScroll} />
         </Sidebar>
         <Content ref={containerRef} className="border-l bg-zinc-900/50 border-l-white/20">
           <FloatingNoteTitle className="pt-1" />

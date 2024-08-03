@@ -71,3 +71,10 @@ h1 {
 ### 状态管理库 Jotai
 
 ### fs-extra
+
+
+### 进程通信
+
+1. 主 渲染 相互通信
+
+`ipcMain.handle(channel, listener)` 当在渲染进程中调用`ipcipcRenderer.invoke(channel, ...args)`时这个listener就会调用
