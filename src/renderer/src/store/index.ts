@@ -3,12 +3,10 @@ import { atom } from 'jotai'
 import { unwrap } from 'jotai/utils'
 
 const loadNotes = async () => {
-  const notes = await window.context.getNotes(1, 3)
+  const notes = await window.rendererApi.getNotes()
   console.log(notes, '---')
-
   // sort by most recently etited
-  // return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
-  return []
+  return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
 }
 
 const notesAtomAsync = atom<NoteInfo[] | Promise<NoteInfo[]>>(loadNotes())
@@ -19,18 +17,30 @@ export const notesAtom = unwrap(notesAtomAsync, (prev) => prev)
 // 选中的索引
 export const selectedNoteIndexAtom = atom<number | null>(null)
 
-export const selectedNoteAtom = atom((get) => {
+const selectedNoteAtomAsync = atom(async (get) => {
   const notes = get(notesAtom)
   const selectNoteIndex = get(selectedNoteIndexAtom)
   if (selectNoteIndex == null || !notes) return null
 
   const selectNote = notes[selectNoteIndex]
+  // 获取note的内容
+  const noteContent = await window.rendererApi.readNoteDatail(selectNote.title)
 
   return {
     ...selectNote,
-    content: `Hello from ${selectNoteIndex}`
+    content: noteContent
   }
 })
+
+export const selectedNoteAtom = unwrap(
+  selectedNoteAtomAsync,
+  (prev) =>
+    prev ?? {
+      title: '',
+      content: '',
+      lastEditTime: Date.now()
+    }
+)
 
 // new
 export const createEmptyNoteAtom = atom(null, (get, set) => {

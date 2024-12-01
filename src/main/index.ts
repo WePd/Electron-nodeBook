@@ -1,9 +1,9 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { GetNotes } from '@shared/types'
+import { GetNotes, ReadNoteDetail, SaveNote } from '@shared/types'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { getNotes } from './lib'
+import { getNotes, readNoteDetail, saveNote } from './lib'
 
 function createWindow(): void {
   // Create the browser window.
@@ -68,11 +68,20 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   // 获取nots  需要的是主渲相互通信 则选择 invoke(渲) handle(主)通信
-  ipcMain.handle('getNotes', async (events, ...args: Parameters<GetNotes>) => {
-    console.log(events, ...args)
+  ipcMain.handle('getNotes', async (_, ...args: Parameters<GetNotes>) => {
+    console.log(...args, '主进程')
     // return `torender`
     return getNotes(...args)
   })
+
+  // 读取note的内容
+  ipcMain.handle('getNoteDetail', async (_, ...args: Parameters<ReadNoteDetail>) =>
+    readNoteDetail(...args)
+  )
+
+  // 保存note的内容
+
+  ipcMain.handle('saveNote', async (_, ...args: Parameters<SaveNote>) => saveNote(...args))
 
   createWindow()
 

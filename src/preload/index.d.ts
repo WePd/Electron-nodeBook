@@ -1,11 +1,12 @@
-import { GetNots } from '@shared/types'
+import { GetNots, ReadNoteDetail, SaveNote } from '@shared/types'
 
 declare global {
   interface Window {
-    context: {
+    rendererApi: {
       locale: string
       getNotes: GetNots
-      test: () => {}
+      readNoteDatail: ReadNoteDetail
+      saveNote: SaveNote
     }
   }
 }
