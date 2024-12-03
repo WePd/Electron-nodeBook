@@ -1,4 +1,4 @@
-import { GetNotes, ReadNoteDetail, SaveNote } from '@shared/types'
+import { CreateNote, GetNotes, ReadNoteDetail, SaveNote } from '@shared/types'
 import { contextBridge, ipcRenderer } from 'electron'
 
 if (!process.contextIsolated) {
@@ -12,6 +12,7 @@ try {
     readNoteDatail: (...args: Parameters<ReadNoteDetail>) =>
       ipcRenderer.invoke('getNoteDetail', ...args),
     saveNote: (...args: Parameters<SaveNote>) => ipcRenderer.invoke('saveNote', ...args),
+    createNote: (...args: Parameters<CreateNote>) => ipcRenderer.invoke('createNote', ...args),
   })
 } catch (error) {
   console.error(error)

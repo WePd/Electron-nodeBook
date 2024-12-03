@@ -2,9 +2,11 @@
 
 import { appDirectoryName, fileEncoding } from '@shared/constants'
 import { NoteInfo } from '@shared/model'
-import { GetNotes, ReadNoteDetail, SaveNote } from '@shared/types'
+import { CreateNote, GetNotes, ReadNoteDetail, SaveNote } from '@shared/types'
+import { dialog } from 'electron'
 import { ensureDir, readdir, readFile, stat, writeFile } from 'fs-extra'
 import { homedir } from 'os'
+import path from 'path'
 
 export const getRootDir = () => {
   return `${homedir()}/${appDirectoryName}`
@@ -43,6 +45,40 @@ export const readNoteDetail: ReadNoteDetail = (filename) => {
 
 export const saveNote: SaveNote = (filename, content) => {
   const rootDir = getRootDir()
+  console.log(`文件写入${filename}`)
 
   return writeFile(`${rootDir}/${filename}.md`, content, { encoding: fileEncoding })
+}
+
+export const createNote: CreateNote = async () => {
+  const rootDir = getRootDir()
+
+  await ensureDir(rootDir)
+
+  const { canceled, filePath } = await dialog.showSaveDialog({
+    title: '创建笔记',
+    defaultPath: `${rootDir}/新建笔记.md`,
+    filters: [{ name: 'Markdown', extensions: ['md'] }],
+    buttonLabel: '创建',
+    properties: ['createDirectory', 'showOverwriteConfirmation']
+  })
+
+  if (!canceled || !filePath) {
+    return false
+  }
+
+  const { name: fileName, dir: parentDir } = path.parse(filePath)
+
+  if (parentDir !== rootDir) {
+    await dialog.showMessageBox({
+      type: 'error',
+      title: '错误',
+      message: '只能创建在根目录下'
+    })
+    return false
+  }
+
+  await writeFile(`${rootDir}/${fileName}.md`, '')
+
+  return fileName
 }

@@ -1,9 +1,9 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { GetNotes, ReadNoteDetail, SaveNote } from '@shared/types'
+import { CreateNote, GetNotes, ReadNoteDetail, SaveNote } from '@shared/types'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { getNotes, readNoteDetail, saveNote } from './lib'
+import { createNote, getNotes, readNoteDetail, saveNote } from './lib'
 
 function createWindow(): void {
   // Create the browser window.
@@ -80,8 +80,10 @@ app.whenReady().then(() => {
   )
 
   // 保存note的内容
-
   ipcMain.handle('saveNote', async (_, ...args: Parameters<SaveNote>) => saveNote(...args))
+
+  // 创建note
+  ipcMain.handle('createNote', async (_, ...args: Parameters<CreateNote>) => createNote(...args))
 
   createWindow()
 
